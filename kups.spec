@@ -7,6 +7,7 @@ Release:	2
 License:	GPL
 Group:		X11/Applications
 Source0:	http://dl.sourceforge.net/cups/%{name}-%{version}.tar.gz
+# Source0-md5:	6988ed0e755335e819587bb73537c3da
 URL:		http://sourceforge.net/projects/cups/
 BuildRequires:	docbook-dtd-sgml
 BuildRequires:	docbook-style-dsssl
