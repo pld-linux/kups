@@ -97,11 +97,6 @@ CXXFLAGS="%{rpmcflags} %{!?debug:-DNO_DEBUG} -fno-exceptions -fno-check-new"
 rm -rf $RPM_BUILD_ROOT
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
-
-
-
-gzip -9nf AUTHORS ChangeLog NEWS README TODO
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -113,7 +108,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_libdir}/libkupsdconf.so.*
 %{_datadir}/apps/kups/*
-%doc *.gz 
+%doc AUTHORS ChangeLog NEWS README TODO
 %doc %{_htmldir}/en/kups
 %{_pixmapsdir}/locolor/*/apps/*
 %{_pixmapsdir}/hicolor/*/actions/*
