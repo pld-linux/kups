@@ -9,8 +9,8 @@ Group:		X11/Applications
 Source0:	http://prdownloads.sourceforge.net/cups/%{name}-%{version}.tar.gz
 URL:		http://sourceforge.net/projects/cups
 BuildRequires:	qtcups-devel >= 2.0
-BuildRequires:  docbook-dtd-sgml
-BuildRequires:  sgml-tools
+BuildRequires:	docbook-dtd-sgml
+BuildRequires:	sgml-tools
 BuildRequires:	docbook-style-dsssl
 BuildRequires:	sgml-common
 BuildRequires:	openjade
@@ -35,8 +35,8 @@ In addition, there is the "kupsdconf" utility, a KDE based frontend
 for setting up all options of the CUPS daemon, defined in the
 /etc/cups/cupsd.conf file. So it is easy to choose the users/groups
 who are allowed to do printer administration, to restrict the
-broadcasting of printer information to selected machines or
-subnets, and so on.
+broadcasting of printer information to selected machines or subnets,
+and so on.
 
 %description -l pl
 Oparty na KDE interfejs do administrowania drukarkami dzia³aj±cymi
@@ -54,9 +54,9 @@ prawo do administrowania drukarkami, ograniczyæ do wybranych maszyn
 lub podsieci rozg³aszanie informacji o drukarkach itp.
 
 %package devel
-Summary:        Development files for usage of the kupsdconf library
+Summary:	Development files for usage of the kupsdconf library
 Summary(pl):	Pliki dla programistów u¿ywaj±cych biblioteki kupsdconf
-Group:          Development/Libraries
+Group:		Development/Libraries
 
 %description devel
 This package contains the files needed to compile programs using the
