@@ -6,14 +6,14 @@ Version:	1.0
 Release:	2
 License:	GPL
 Group:		X11/Applications
-Source0:	http://prdownloads.sourceforge.net/cups/%{name}-%{version}.tar.gz
-URL:		http://sourceforge.net/projects/cups
-BuildRequires:	qtcups-devel >= 2.0
+Source0:	http://dl.sourceforge.net/cups/%{name}-%{version}.tar.gz
+URL:		http://sourceforge.net/projects/cups/
 BuildRequires:	docbook-dtd-sgml
-BuildRequires:	sgml-tools
 BuildRequires:	docbook-style-dsssl
-BuildRequires:	sgml-common
 BuildRequires:	openjade
+BuildRequires:	sgml-common
+BuildRequires:	sgml-tools
+BuildRequires:	qtcups-devel >= 2.0
 Requires:	cups >= 1.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
