@@ -12,6 +12,7 @@ URL:		http://sourceforge.net/projects/cups/
 BuildRequires:	docbook-dtd-sgml
 BuildRequires:	docbook-style-dsssl
 BuildRequires:	openjade
+BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	sgml-common
 BuildRequires:	sgml-tools
 BuildRequires:	qtcups-devel >= 2.0
@@ -78,11 +79,10 @@ perl -pi -e 's!\*Manufacturer:.*"Postscript"!\*Manufacturer:  "POSTSCRIPT"!;' dr
 perl -pi -e 's!Generic postscript printer!Generic PostScript printer!;' driver/postscript.ppd
 
 %build
-kde_htmldir="%{_htmldir}"; export kde_htmldir
-kde_icondir="%{_pixmapsdir}"; export kde_icondir
 # These compiler options are NEEDED otherwise KUPS does not compile
 CXXFLAGS="%{rpmcflags} %{!?debug:-DNO_DEBUG} -fno-exceptions -fno-check-new"
-%configure2_13 --with-install-root=$RPM_BUILD_ROOT \
+%configure2_13 \
+	--with-install-root=$RPM_BUILD_ROOT \
 	--enable-qt2 \
 	--with-qt-dir=%{qtdir} \
 	--disable-qt-debug \
@@ -94,7 +94,10 @@ CXXFLAGS="%{rpmcflags} %{!?debug:-DNO_DEBUG} -fno-exceptions -fno-check-new"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%{__make} install DESTDIR=$RPM_BUILD_ROOT
+
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT \
+	kde_htmldir=%{_kdedocdir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
