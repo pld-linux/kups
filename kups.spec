@@ -1,22 +1,25 @@
 %define qtdir	/usr/X11/
 Summary:	A KDE-based printer administration tool for CUPS
-Summary(pl):	Interfejs do cupsa
+Summary(pl):	Oparte na KDE narzêdzie administracyjne do cupsa
 Name:		kups
 Version:	1.0
 Release:	1
 License:	GPL
-Group:		Publishing
+Group:		X11/Applications
 Source0:	http://prdownloads.sourceforge.net/cups/%{name}-%{version}.tar.gz
 URL:		http://sourceforge.net/projects/cups
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-Requires:	cups >= 1.1, qt >= 2.1, kdelibs, qtcups >= 2.0
 BuildRequires:	qtcups-devel >= 2.0
 BuildRequires:  docbook-dtd-sgml
 BuildRequires:  sgml-tools
 BuildRequires:	docbook-style-dsssl
 BuildRequires:	sgml-common
 BuildRequires:	openjade
+Requires:	cups >= 1.1
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
+%define		_prefix		/usr/X11R6
+%define		_mandir		%{_prefix}/man
+%define		_htmldir	/usr/share/doc/kde/HTML
 
 %description
 A KDE-based frontend for administration of printers running under CUPS
@@ -31,9 +34,29 @@ autodetection of the printers.
 In addition, there is the "kupsdconf" utility, a KDE based frontend
 for setting up all options of the CUPS daemon, defined in the
 /etc/cups/cupsd.conf file. So it is easy to choose the users/groups
-who are allowed to do printer administration, to restrict
-thebroadcasting of printer information to selected machines or
+who are allowed to do printer administration, to restrict the
+broadcasting of printer information to selected machines or
 subnets, and so on.
+
+%description -l pl
+Oparty na KDE interfejs do administrowania drukarkami dzia³aj±cymi
+poprzez CUPS (Common Unix Printing System). Podaje listê dostêpnych
+lokalnie i zdalnie drukarek, ich ustawienia oraz zadania, pozwalaj±c
+skonfigurowaæ drukarki (w tym ustawienie g³owicy i kalibracjê kolorów
+w wielu modelach), wydrukowaæ stronê testow±, usuwaæ zadania, dodawaæ
+i usuwaæ drukarki. Do instalowania nowych drukarek s³u¿y wizard, który
+pyta o potrzebne dane i próbuje automatycznie wykryæ drukarki.
+
+Ponadto do³±czone jest narzêdzie kupsdconf, bêd±ce interfejsem KDE do
+ustawiania opcji demona CUPS, zdefiniowanych w pliku
+/etc/cups/cupsd.conf. Pozwala ³atwo wybraæ u¿ytkowników i grupy maj±ce
+prawo do administrowania drukarkami, ograniczyæ do wybranych maszyn
+lub podsieci rozg³aszanie informacji o drukarkach itp.
+
+%package devel
+Summary:        Development files for usage of the kupsdconf library
+Summary(pl):	Pliki dla programistów u¿ywaj±cych biblioteki kupsdconf
+Group:          Development/Libraries
 
 %description devel
 This package contains the files needed to compile programs using the
@@ -41,13 +64,12 @@ kupsdconf library. This library provides a KDE-based dialog to
 configure the options of the CUPS daemon stored in
 /etc/cups/cupsd.conf.
 
-%package devel
-Summary:        Development files for usage of the kupsdconf library
-Group:          Development/C
+%description devel -l pl
+Ten pakiet zawiera pliki potrzebne do kompilacji programów u¿ywaj±cych
+biblioteki kupsdconf. Biblioteka ta udostêpnia okienko dialogowe KDE z
+opcjami do konfiguracji demona CUPS z pliku /etc/cups/cupsd.conf.
 
 %prep
-rm -rf $RPM_BUILD_DIR/%{name}-%{version}
-
 %setup -q
 touch `find . -type f`
 # Clean up "driver/postscript.ppd" and add 1200 dpi and 2400 dpi
@@ -57,15 +79,17 @@ perl -pi -e 's!\*Manufacturer:.*"Postscript"!\*Manufacturer:  "POSTSCRIPT"!;' dr
 perl -pi -e 's!Generic postscript printer!Generic PostScript printer!;' driver/postscript.ppd
 
 %build
+kde_htmldir="%{_htmldir}"; export kde_htmldir
+kde_icondir="%{_pixmapsdir}"; export kde_icondir
 # These compiler options are NEEDED otherwise KUPS does not compile
-#export MOC=%{_bindir}/moc
-export CXXFLAGS="${CXXFLAGS:-%optflags} -DNO_DEBUG -fno-exceptions -fno-check-new"
-%configure2_13 --prefix=%{_prefix} --with-install-root=$RPM_BUILD_ROOT \
+CXXFLAGS="%{rpmcflags} %{!?debug:-DNO_DEBUG} -fno-exceptions -fno-check-new"
+%configure2_13 --with-install-root=$RPM_BUILD_ROOT \
 	--enable-qt2 \
 	--with-qt-dir=%{qtdir} \
 	--disable-qt-debug \
 	--disable-rpath \
 	--with-qt-libraries=%{qtdir}
+
 %{__make} clean
 %{__make}
 
@@ -74,11 +98,11 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
 # Fix broken link
-ln -sf %{_datadir}/doc/HTML/en/common $RPM_BUILD_ROOT%{_datadir}/doc/HTML/en/kups/common
+ln -sf %{_htmldir}/en/common $RPM_BUILD_ROOT%{_htmldir}/en/kups/common
 
 # Link to CUPS test page to avoid having two equal files
 rm -f $RPM_BUILD_ROOT%{_datadir}/apps/kups/testprint.ps
-ln -s %{_datadir}/cups/data/testprint.ps $RPM_BUILD_ROOT%{_datadir}/apps/kups/testprint.ps
+ln -sf /usr/share/cups/data/testprint.ps $RPM_BUILD_ROOT%{_datadir}/apps/kups/testprint.ps
 
 ##menus created
 install -d $RPM_BUILD_ROOT%{_menudir}
@@ -89,43 +113,37 @@ section=Configuration/Printing \
 title="KUPS - CUPS Administration" \
 longtitle="KUPS - Complete administration suite for CUPS" \
 command="%{_bindir}/kups" \
-icon="%{_iconsdir}/locolor/16x16/apps/kups.png"
+icon="%{_pixmapsdir}/locolor/16x16/apps/kups.png"
 ?package(kups): needs=X11 \
 section=Configuration/Printing \
 title="Kupsdonf - CUPS Daemon Configurator" \
 longtitle="Graphical environment to configure the CUPS daemon" \
 command="%{_bindir}/kdesu %{_bindir}/kupsdconf" \
-icon="%{_iconsdir}/locolor/16x16/apps/kups.png"
+icon="%{_pixmapsdir}/locolor/16x16/apps/kups.png"
 EOF
 
-gzip -9nf  AUTHORS ChangeLog NEWS README TODO
-
-%post
-/sbin/ldconfig
-%{update_menus}
-
-%postun
-/sbin/ldconfig
-%{clean_menus}
+gzip -9nf AUTHORS ChangeLog NEWS README TODO
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post	-p /sbin/ldconfig
+%postun	-p /sbin/ldconfig
+
 %files
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) %{_libdir}/libkupsdconf.so.*
 %{_menudir}/*
 %{_datadir}/apps/kups/*
 %{_datadir}/cups/model/*
 %doc *.gz 
-%doc %{_docdir}/HTML/en/kups
-%{_iconsdir}/locolor/*/apps/*
-%{_iconsdir}/hicolor/*/actions/*
-%{_libdir}/libkupsdconf.so.*
-
+%doc %{_htmldir}/en/kups
+%{_pixmapsdir}/locolor/*/apps/*
+%{_pixmapsdir}/hicolor/*/actions/*
 
 %files devel
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/*.la
+%attr(755,root,root) %{_libdir}/*.so
 %{_includedir}/*.h
-%{_libdir}/*.la
-%{_libdir}/*.so
