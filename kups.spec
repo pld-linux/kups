@@ -3,7 +3,7 @@ Summary:	A KDE-based printer administration tool for CUPS
 Summary(pl):	Oparte na KDE narzêdzie administracyjne do cupsa
 Name:		kups
 Version:	1.0
-Release:	1
+Release:	2
 License:	GPL
 Group:		X11/Applications
 Source0:	http://prdownloads.sourceforge.net/cups/%{name}-%{version}.tar.gz
@@ -97,30 +97,8 @@ CXXFLAGS="%{rpmcflags} %{!?debug:-DNO_DEBUG} -fno-exceptions -fno-check-new"
 rm -rf $RPM_BUILD_ROOT
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
-# Fix broken link
-ln -sf %{_htmldir}/en/common $RPM_BUILD_ROOT%{_htmldir}/en/kups/common
 
-# Link to CUPS test page to avoid having two equal files
-rm -f $RPM_BUILD_ROOT%{_datadir}/apps/kups/testprint.ps
-ln -sf /usr/share/cups/data/testprint.ps $RPM_BUILD_ROOT%{_datadir}/apps/kups/testprint.ps
 
-##menus created
-install -d $RPM_BUILD_ROOT%{_menudir}
-
-cat <<EOF > $RPM_BUILD_ROOT%{_menudir}/kups
-?package(kups): needs=X11 \
-section=Configuration/Printing \
-title="KUPS - CUPS Administration" \
-longtitle="KUPS - Complete administration suite for CUPS" \
-command="%{_bindir}/kups" \
-icon="%{_pixmapsdir}/locolor/16x16/apps/kups.png"
-?package(kups): needs=X11 \
-section=Configuration/Printing \
-title="Kupsdonf - CUPS Daemon Configurator" \
-longtitle="Graphical environment to configure the CUPS daemon" \
-command="%{_bindir}/kdesu %{_bindir}/kupsdconf" \
-icon="%{_pixmapsdir}/locolor/16x16/apps/kups.png"
-EOF
 
 gzip -9nf AUTHORS ChangeLog NEWS README TODO
 
@@ -134,9 +112,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_libdir}/libkupsdconf.so.*
-%{_menudir}/*
 %{_datadir}/apps/kups/*
-%{_datadir}/cups/model/*
 %doc *.gz 
 %doc %{_htmldir}/en/kups
 %{_pixmapsdir}/locolor/*/apps/*
