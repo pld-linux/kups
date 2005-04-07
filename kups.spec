@@ -19,8 +19,6 @@ BuildRequires:	qtcups-devel >= 2.0
 Requires:	cups >= 1.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_htmldir	/usr/share/doc/kde/HTML
-
 %description
 A KDE-based frontend for administration of printers running under CUPS
 (Common Unix Printing System). One gets a list of all available local
@@ -75,8 +73,8 @@ touch `find . -type f`
 # Clean up "driver/postscript.ppd" and add 1200 dpi and 2400 dpi
 # Remove also the CUPS filter line, it is not needed for a PS printer and
 # even prevents it from printing images.
-perl -pi -e 's!\*Manufacturer:.*"Postscript"!\*Manufacturer:  "POSTSCRIPT"!;' driver/postscript.ppd
-perl -pi -e 's!Generic postscript printer!Generic PostScript printer!;' driver/postscript.ppd
+%{__perl} -pi -e 's!\*Manufacturer:.*"Postscript"!\*Manufacturer:  "POSTSCRIPT"!;' driver/postscript.ppd
+%{__perl} -pi -e 's!Generic postscript printer!Generic PostScript printer!;' driver/postscript.ppd
 
 %build
 # These compiler options are NEEDED otherwise KUPS does not compile
