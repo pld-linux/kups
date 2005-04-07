@@ -109,7 +109,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libkupsdconf.so.*
 %{_datadir}/apps/kups/*
 %doc AUTHORS ChangeLog NEWS README TODO
-%doc %{_htmldir}/en/kups
+%doc %{_kdedocdir}/en/kups
 %{_pixmapsdir}/locolor/*/apps/*
 %{_pixmapsdir}/hicolor/*/actions/*
 
