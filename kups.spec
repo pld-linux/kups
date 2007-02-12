@@ -1,6 +1,6 @@
 %define qtdir	/usr/X11/
 Summary:	A KDE-based printer administration tool for CUPS
-Summary(pl):	Oparte na KDE narzêdzie administracyjne do cupsa
+Summary(pl.UTF-8):   Oparte na KDE narzÄ™dzie administracyjne do cupsa
 Name:		kups
 Version:	1.0
 Release:	2
@@ -36,24 +36,24 @@ who are allowed to do printer administration, to restrict the
 broadcasting of printer information to selected machines or subnets,
 and so on.
 
-%description -l pl
-Oparty na KDE interfejs do administrowania drukarkami dzia³aj±cymi
-poprzez CUPS (Common Unix Printing System). Podaje listê dostêpnych
-lokalnie i zdalnie drukarek, ich ustawienia oraz zadania, pozwalaj±c
-skonfigurowaæ drukarki (w tym ustawienie g³owicy i kalibracjê kolorów
-w wielu modelach), wydrukowaæ stronê testow±, usuwaæ zadania, dodawaæ
-i usuwaæ drukarki. Do instalowania nowych drukarek s³u¿y wizard, który
-pyta o potrzebne dane i próbuje automatycznie wykryæ drukarki.
+%description -l pl.UTF-8
+Oparty na KDE interfejs do administrowania drukarkami dziaÅ‚ajÄ…cymi
+poprzez CUPS (Common Unix Printing System). Podaje listÄ™ dostÄ™pnych
+lokalnie i zdalnie drukarek, ich ustawienia oraz zadania, pozwalajÄ…c
+skonfigurowaÄ‡ drukarki (w tym ustawienie gÅ‚owicy i kalibracjÄ™ kolorÃ³w
+w wielu modelach), wydrukowaÄ‡ stronÄ™ testowÄ…, usuwaÄ‡ zadania, dodawaÄ‡
+i usuwaÄ‡ drukarki. Do instalowania nowych drukarek sÅ‚uÅ¼y wizard, ktÃ³ry
+pyta o potrzebne dane i prÃ³buje automatycznie wykryÄ‡ drukarki.
 
-Ponadto do³±czone jest narzêdzie kupsdconf, bêd±ce interfejsem KDE do
+Ponadto doÅ‚Ä…czone jest narzÄ™dzie kupsdconf, bÄ™dÄ…ce interfejsem KDE do
 ustawiania opcji demona CUPS, zdefiniowanych w pliku
-/etc/cups/cupsd.conf. Pozwala ³atwo wybraæ u¿ytkowników i grupy maj±ce
-prawo do administrowania drukarkami, ograniczyæ do wybranych maszyn
-lub podsieci rozg³aszanie informacji o drukarkach itp.
+/etc/cups/cupsd.conf. Pozwala Å‚atwo wybraÄ‡ uÅ¼ytkownikÃ³w i grupy majÄ…ce
+prawo do administrowania drukarkami, ograniczyÄ‡ do wybranych maszyn
+lub podsieci rozgÅ‚aszanie informacji o drukarkach itp.
 
 %package devel
 Summary:	Development files for usage of the kupsdconf library
-Summary(pl):	Pliki dla programistów u¿ywaj±cych biblioteki kupsdconf
+Summary(pl.UTF-8):   Pliki dla programistÃ³w uÅ¼ywajÄ…cych biblioteki kupsdconf
 Group:		Development/Libraries
 
 %description devel
@@ -62,9 +62,9 @@ kupsdconf library. This library provides a KDE-based dialog to
 configure the options of the CUPS daemon stored in
 /etc/cups/cupsd.conf.
 
-%description devel -l pl
-Ten pakiet zawiera pliki potrzebne do kompilacji programów u¿ywaj±cych
-biblioteki kupsdconf. Biblioteka ta udostêpnia okienko dialogowe KDE z
+%description devel -l pl.UTF-8
+Ten pakiet zawiera pliki potrzebne do kompilacji programÃ³w uÅ¼ywajÄ…cych
+biblioteki kupsdconf. Biblioteka ta udostÄ™pnia okienko dialogowe KDE z
 opcjami do konfiguracji demona CUPS z pliku /etc/cups/cupsd.conf.
 
 %prep
