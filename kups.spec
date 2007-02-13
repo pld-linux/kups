@@ -1,6 +1,6 @@
 %define qtdir	/usr/X11/
 Summary:	A KDE-based printer administration tool for CUPS
-Summary(pl.UTF-8):   Oparte na KDE narzędzie administracyjne do cupsa
+Summary(pl.UTF-8):	Oparte na KDE narzędzie administracyjne do cupsa
 Name:		kups
 Version:	1.0
 Release:	2
@@ -53,7 +53,7 @@ lub podsieci rozgłaszanie informacji o drukarkach itp.
 
 %package devel
 Summary:	Development files for usage of the kupsdconf library
-Summary(pl.UTF-8):   Pliki dla programistów używających biblioteki kupsdconf
+Summary(pl.UTF-8):	Pliki dla programistów używających biblioteki kupsdconf
 Group:		Development/Libraries
 
 %description devel
